@@ -1,10 +1,7 @@
 <?php
+// Load the configs and utilities
 require('inc/config.php');
 require('inc/utilities.php');
-require('inc/kissMySQL.php');
-
-// Connect to the database
-$wmdb = new kissMySQL(DB_USER, DB_PASS, DB_NAME);
 
 // Run setup check
 require('inc/setup.php');

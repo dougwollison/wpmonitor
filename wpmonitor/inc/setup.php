@@ -1,4 +1,9 @@
 <?php
+require('inc/kissMySQL.php');
+
+// Connect to the database
+$wmdb = new kissMySQL(DB_USER, DB_PASS, DB_NAME);
+
 if(!$wmdb->ready){
 	die('Unable to connect to database');
 }

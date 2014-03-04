@@ -1,8 +1,6 @@
 <?php
+// Load the configs
 require('inc/config.php');
-require('inc/kissMySQL.php');
-
-$wmdb = new kissMySQL(DB_USER, DB_PASS, DB_NAME);
 
 // Run setup check
 require('inc/setup.php');
@@ -37,7 +35,7 @@ if($input){
 
 	$wmdb->delete('plugins', array('site' => $sid));
 	foreach($data->plugins as $plugin => $version){
-		$wmdb->replace('plugins', array(
+		$wmdb->insert('plugins', array(
 			'site' => $sid,
 			'name' => $plugin,
 			'version' => $version
