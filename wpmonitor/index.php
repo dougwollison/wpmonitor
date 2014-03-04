@@ -1,14 +1,19 @@
 <?php
 require('inc/config.php');
-require('inc/auth.php');
 require('inc/utilities.php');
 require('inc/kissMySQL.php');
 
-// Get the current version of WordPress
-$wp_core = wp_core_version();
-
 // Connect to the database
 $wmdb = new kissMySQL(DB_USER, DB_PASS, DB_NAME);
+
+// Run setup check
+require('inc/setup.php');
+
+// Run authentication check
+require('inc/auth.php');
+
+// Get the current version of WordPress
+$wp_core = wp_core_version();
 
 // Get all sites
 $sites = get_sites();

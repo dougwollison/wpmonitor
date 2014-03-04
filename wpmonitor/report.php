@@ -4,6 +4,9 @@ require('inc/kissMySQL.php');
 
 $wmdb = new kissMySQL(DB_USER, DB_PASS, DB_NAME);
 
+// Run setup check
+require('inc/setup.php');
+
 $input = file_get_contents('php://input');
 
 if($input){
