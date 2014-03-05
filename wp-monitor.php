@@ -26,6 +26,7 @@ add_action('init', function(){
 	}
 
 	$plugins = array();
+	// Loop through each plugin and get it's information
 	foreach($active_plugins as $plugin){
 		// Get the slug of the plugin (file or folder name)
 		$name = $plugin == basename($plugin) ? pathinfo($plugin, PATHINFO_FILENAME) : dirname($plugin);
@@ -57,18 +58,18 @@ add_action('init', function(){
 		}
 	}
 
-	$data = array(
+	// Build the data list
+	$data = json_encode(array(
 		'url' => $site_url,
 		'name' => get_bloginfo('name'),
 		'version' => $wp_version,
 		'plugins' => $plugins
-	);
-
-	$json = json_encode($data);
+	));
 
 	// Hash the data for comparison
-	$hash = md5($json);
+	$hash = md5($data);
 
+	// Check if there's been a change
 	if(get_option('wp_monitor_last_update') == $hash) return;
 	update_option('wp_monitor_last_update', $hash);
 
@@ -76,11 +77,11 @@ add_action('init', function(){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, WM_REPORT_URL);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 	    'Content-Type: application/json',
-	    'Content-Length: ' . strlen($json))
+	    'Content-Length: ' . strlen($data))
 	);
 
 	curl_exec($ch);
