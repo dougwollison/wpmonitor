@@ -18,11 +18,17 @@
 </head>
 <body>
 	<div class="container">
-		<h1>WP Monitor</h1>
+		<h1>
+			<strong>WP Monitor</strong>
+			<a href="?logout" class="btn btn-default pull-right">Logout</a>
+		</h1>
 		<?php foreach($sites as $site):?>
 		<hr />
-		<h2><?php echo $site->name?>
-			<small><a href="http://<?php echo $site->url?>/wp-admin/" target="_blank"><?php echo $site->url?></a></small></h2>
+		<h2>
+			<?php echo $site->name?>
+			<small><?php echo $site->url?></small>
+			<a href="http://<?php echo $site->url?>/wp-admin/" target="_blank" class="btn btn-info btn-sm pull-right">Admin</a>
+		</h2>
 		<table class="table">
 			<thead>
 				<tr>
